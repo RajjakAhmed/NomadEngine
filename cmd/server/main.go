@@ -5,7 +5,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/RajjakAhmed/NomadEngine/internal/store"
+	"github.com/RajjakAhmed/NomadEngine/internal/workflow"
+	"github.com/RajjakAhmed/NomadEngine/internal/engine"
 )
+
 
 func main() {
 	err := store.InitDB()
@@ -14,6 +17,11 @@ func main() {
 	}
 
 	router := gin.Default()
+	// Register workflow and engine routes
+	workflow.RegisterRoutes(router)
+	engine.RegisterRoutes(router)
+
+	
 
 	router.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
